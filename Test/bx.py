@@ -1,7 +1,10 @@
+# 计算零存整取本息
 
+# money存years年的本息
 def one_year_money(years, rate, money):
     return money * (1 + rate) ** years
 
+# 每年存入a_money，持续years年后的本息
 def every_year_money(years, rate, a_money):
     money = 0
     for index in range(years):
