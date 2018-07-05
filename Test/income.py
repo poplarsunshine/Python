@@ -26,7 +26,7 @@ base_money_limit = 25401
 base_tax = 3500
 
 def main():
-    income = int(input("income:").title())
+    income = int(input("税前工资:").title())
     money = float_fun_final_income(income)
 
 def float_fun_final_income(income):
@@ -36,32 +36,40 @@ def float_fun_final_income(income):
         base_money = income
     # base_money = 12000
 
-    old_private = base_money * rate_old_private
-    old_enterprise = base_money * rate_old_enterprise
-    medical_private = base_money * rate_medical_private
-    medical_enterprise = base_money * rate_medical_enterprise
-    unemployed_private = base_money * rate_unemployed_private
-    unemployed_enterprise = base_money * rate_unemployed_enterprise
-    accident_private = base_money * rate_accident_private
-    accident_enterprise = base_money * rate_accident_enterprise
-    born_private = base_money * rate_born_private
-    born_enterprise = base_money * rate_born_enterprise
-    home_private = base_money * rate_home_private
-    home_enterprise = base_money * rate_home_enterprise
+    old_private = int(base_money * rate_old_private)
+    old_enterprise = int(base_money * rate_old_enterprise)
+    medical_private = int(base_money * rate_medical_private)
+    medical_enterprise = int(base_money * rate_medical_enterprise)
+    unemployed_private = int(base_money * rate_unemployed_private)
+    unemployed_enterprise = int(base_money * rate_unemployed_enterprise)
+    accident_private = int(base_money * rate_accident_private)
+    accident_enterprise = int(base_money * rate_accident_enterprise)
+    born_private = int(base_money * rate_born_private)
+    born_enterprise = int(base_money * rate_born_enterprise)
+    home_private = int(base_money * rate_home_private)
+    home_enterprise = int(base_money * rate_home_enterprise)
 
     insurance_private = old_private + medical_private + unemployed_private + accident_private + born_private + home_private
     insurance_enterprise = old_enterprise + medical_enterprise + unemployed_enterprise + accident_enterprise + born_enterprise + home_enterprise
 
-    print("个人缴纳保险公积金:", insurance_private, "其中公积金:", home_private)
-    print("企业缴纳保险公积金:", insurance_enterprise, "其中公积金:", home_enterprise)
+    print("%-10s %-8s %-10s" % ("项目名称", "个人", "企业"))
+    print("%-10s %-10s %-10s" % ("养老保险", old_private, old_enterprise))
+    print("%-10s %-10s %-10s" % ("医疗保险", medical_private, medical_enterprise))
+    print("%-10s %-10s %-10s" % ("工伤保险", accident_private, accident_enterprise))
+    print("%-10s %-10s %-10s" % ("生育保险", born_private, born_enterprise))
+    print("%-10s %-10s %-10s" % ("住房积金", home_private, home_enterprise))
+    print("---")
+    print("%-9s -%-10s -%-10s =-%d" % ("总计缴纳", insurance_private, insurance_enterprise, insurance_private + insurance_enterprise))
 
     # 扣除保险公积金后的金额（需要缴纳个税）
     income_insurace = income - insurance_private
     tax = float_fun_tax(income_insurace)
-    print("缴纳个税:", tax)
+    print("%-9s -%-10s" % ("缴纳个税", tax))
+    print("---------------------")
     money = income_insurace - tax
-    print("收入:", money)
-    print("总价值:", money + insurance_private + insurance_enterprise)
+    total = money + insurance_private + insurance_enterprise
+    print("税后收入:", money)
+    print("------------------------------------------")
 
     return money
 
