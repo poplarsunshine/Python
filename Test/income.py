@@ -1,4 +1,5 @@
 # 收入计算器（北京2018）
+import argparse
 
 # 养老保险
 rate_old_private = 0.08
@@ -30,11 +31,13 @@ def main():
     money = float_fun_final_income(income)
 
 def float_fun_final_income(income):
-    if income > base_money_limit:
-        base_money = base_money_limit
+    in_arg = get_input_args()
+    base_limit = in_arg.base_limit
+
+    if income > base_limit:
+        base_money = base_limit
     else:
         base_money = income
-    # base_money = 12000
 
     old_private = int(base_money * rate_old_private)
     old_enterprise = int(base_money * rate_old_enterprise)
@@ -103,5 +106,15 @@ def float_fun_tax(income):
     tax =  tax_income * tax_rate - base_tax_money
     return tax
 
+# Functions defined below
+def get_input_args():
+    # Creates parse
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--base_limit', type=int, default=base_money_limit,
+                        help='社保及公积金基数:')
+
+    # returns parsed argument collection
+    return parser.parse_args()
 
 main()
