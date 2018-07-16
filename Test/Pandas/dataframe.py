@@ -64,8 +64,7 @@ print("store_items=\n", store_items)
 # 而 .drop() 方法可以同时用于删除行和列，只需使用关键字 axis 即可
 store_items.pop('new watches')
 print("store_items=\n", store_items)
-store_items = store_items.drop(['lb2'], axis = 0)
-print("dorp store_items=\n", store_items)
+print("drop store_items=\n", store_items.drop(['lb2'], axis = 0))
 
 # 改名
 # .rename()
@@ -76,3 +75,21 @@ print("rename store_items=\n", store_items)
 # 将某列设置为索引
 store_items = store_items.set_index('pants')
 print("reindex store_items=\n", store_items)
+
+### NaN
+print("isnull sum sum=", store_items.isnull().sum().sum())
+print("isnull count count=", store_items.isnull().count().count())
+# dropna
+# print("store_items dropna=\n", store_items.dropna(axis = 0))
+# print("store_items dropna=\n", store_items.dropna(axis = 1))
+
+# fillna()
+print("fillna store_items=\n", store_items.fillna(0))
+# .fillna() 方法将 NaN 值替换为 DataFrame 中的上个值，称之为前向填充。
+# 在通过前向填充替换 NaN 值时，我们可以使用列或行中的上个值。
+# .fillna(method = 'ffill', axis) 将通过前向填充 (ffill) 方法沿着给定 axis 使用上个已知值替换 NaN 值
+print("fillna store_items=\n", store_items.fillna(method = 'ffill', axis = 0))
+# .fillna(method = 'backfill', axis) 将通过后向填充 (backfill) 方法沿着给定 axis 使用下个已知值替换 NaN 值
+print("fillna store_items=\n", store_items.fillna(method = 'backfill', axis = 1))
+
+# .interpolate(method = 'linear', axis) 线性平均值
